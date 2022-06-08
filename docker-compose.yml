@@ -1,18 +1,5 @@
 version: '3.9'
 services:
-  appi:
-    container_name: appi
-    build: ./appi
-    stdin_open: true
-    ports:
-      - "3000:3000"
-    expose:
-      - 3000
-    volumes:
-      - ./appi:/usr/src/app
-    depends_on:
-      - mysqldb
-
   mysqldb:
     image: mysql:5.7
     container_name: mysqldb
@@ -26,7 +13,21 @@ services:
       # Opens port 3306 on the container
       - '3306'
     volumes:
+      #Corre todos los archivos .sql que se encuentren en esa carpeta
+      - ./dbquery:/docker-entrypoint-initdb.d/
       - db:/data/db
+  appi:
+    container_name: appi
+    build: ./appi
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+      - ./appi:/usr/src/app
+    #Solo se iniciará cuando mysql se inicie
+    depends_on:
+      - mysqldb
 
 volumes:
   db:
