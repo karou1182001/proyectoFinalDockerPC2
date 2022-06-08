@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  appi:
+    container_name: appi
+    build: ./appi
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+      - ./appi:/usr/src/app
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:5.7
+    container_name: mysqldb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=dockerapp
+      - MYSQL_ROOT_PASSWORD=112358
+    ports:
+      - '3307:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+    volumes:
+      - db:/data/db
+
+volumes:
+  db:
+    driver: local
