@@ -11,12 +11,11 @@ const mysqlConnection = mysql.createConnection({
 });
 
 mysqlConnection.connect(function (err) {
-    console.log('Conexión con base de datos:');
     if (err) {
-        console.log('nok');
+        console.log(JSON.stringify({ "Conexión con base de datos: ": "nok"}));
       return;
     } else {
-      console.log('ok');
+      console.log(JSON.stringify({ "Conexión con base de datos: ": "ok"}));
     }
   });
 

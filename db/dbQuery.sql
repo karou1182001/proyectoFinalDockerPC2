@@ -9,16 +9,16 @@ CREATE TABLE `dockerapp`.`users` (
 CREATE TABLE `dockerapp`.`s`(
   `id` INT NOT NULL AUTO_INCREMENT,
   `idUser` INT NOT NULL,
-  `timestamp` VARCHAR(45) DEFAULT NULL,
-  `hash` INT DEFAULT NULL, 
+  `timestamp` TIMESTAMP,
+  `hash` VARCHAR(45),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`idUser`) REFERENCES `users`(`id`) ON DELETE CASCADE);
   
   CREATE TABLE `dockerapp`.`a`(
   `id` INT NOT NULL AUTO_INCREMENT,
   `idUser` INT NOT NULL,
-  `hashEnviado` INT DEFAULT NULL,
-  `timestamp` VARCHAR(45) DEFAULT NULL,
+  `hashEnviado` VARCHAR(45),
+  `timestamp` TIMESTAMP,
   `respuesta` VARCHAR(45) DEFAULT NULL,
    PRIMARY KEY (`id`),
    FOREIGN KEY (`idUser`) REFERENCES `users`(`id`) ON DELETE CASCADE);
