@@ -2,23 +2,22 @@
 
 # PASOS INICIALES
 
-###1. Clonar
+### 1. Clonar
 
 ```
 git clone https://github.com/karou1182001/proyectoFinalDockerPC2.git
 ```
-###2. Entrar a la carpeta
+### 2. Entrar a la carpeta
 ```
 cd proyectoFinalDockerPC2
 ```
-###3. Levantar los contenedores
+### 3. Levantar los contenedores
 ```
 docker-compose up -d
 ```
 (Si el puerto de la appi se llega a apagar, correr: docker-compose up -d appi)
 
 #  PASOS PARA HACER LAS CONSULTAS
-
 
 ### 1. Un método que devuelve un ok si la conexión de la base de datos es exitosa y un nok en caso contrario:
 Corra:
