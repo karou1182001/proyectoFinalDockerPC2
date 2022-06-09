@@ -1,5 +1,7 @@
 const mysql = require('mysql');
 
+//Para hacer el wait fot it https://keepgrowing.in/tools/how-to-make-one-docker-container-wait-for-another/
+
 //Conecto con la base de datos
 const mysqlConnection = mysql.createConnection({
   host: 'mysqldb',
