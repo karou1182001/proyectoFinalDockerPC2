@@ -17,11 +17,11 @@ const mysqlConnection = mysql.createConnection({
 var conexion;
 mysqlConnection.connect(function (err) {
     if (err) {
-      console.log("Conexión no exitosa");
+      console.log("Conectado a la base de datos");
         conexion= "nok";
       return;
     } else {
-      console.log("Conectado a la base de datos");
+      console.log("Conexión no exitosa");
       conexion= "ok";
     }
   });
