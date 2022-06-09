@@ -21,11 +21,11 @@ router.get('/users', (req, res) => {
 
 //GET table s en formato JSON
 router.get('/s', (req, res) => {
-    mysqlConnection.query('SELECT * FROM s', (err, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM s', (err, rows,  result) => {
       //Si no obtuvimos ningún error, mostramos las filas en formato json
       if(!err) {
-        res.json(rows);
-        console.log(rows);
+        res.json(result);
+        console.log(result);
       } else {
         console.log(err);
       }
@@ -53,9 +53,9 @@ router.get('/a', (req, res) => {
 id, timestamp y hash (tabla s). El hash solo tendrá una validez de cuatro horas.
 */
 //Ej: http://localhost:3000/newuser/1002
-router.post("/newuser/:idUser", (req, res)=> {
+router.get("/newuser/:idUser", (req, res)=> {
   //Se realizará esto en 5 pasos
-  //1. En la tabla de usuarios insertamos el nuevo id que se le pasó por parámetro
+  //1. Obetenemos el nuevo id que se le pasó por parámetro
   const idUser= req.params.idUser;  
   //Si  ya existe ese id, no lo inserta
   mysqlConnection.query("INSERT IGNORE INTO users (id) VALUES (?)", [idUser], (err, result)=>{
@@ -80,8 +80,7 @@ router.post("/newuser/:idUser", (req, res)=> {
   mysqlConnection.query(sqlInsert, [idUser, timestamp, hash], (err, result)=>{
     //Si no obtuvimos ningún error
     if(!err) {
-      console.log("Inserción realizada");
-      //console.log(result);
+      //console.log("Inserción realizada");
       //5. Después de que la inserción fue correctamente realizada, le damos su hash al usuario
       console.log(JSON.stringify({ "Su hash es: ": hash}));
     } else {
@@ -89,8 +88,7 @@ router.post("/newuser/:idUser", (req, res)=> {
     }
   });
 });
-//DUDA en método anterior: ¿Si el usuario ya existe en la tabla s debería poder volder a insertarlo?
-//DUDA 2: ¿Cómo hacer que el cuando se corra con el compose up se ejecute primero el script.sql?
+
 //DUDA 3: ¿Cómo correr con curl?
 
 
@@ -99,7 +97,7 @@ router.post("/newuser/:idUser", (req, res)=> {
 un nok en caso contrario. Almacenar en la base de datos el id, hash enviado,
 timestamp y la respuesta (tabla a). */
 //Ej: http://localhost:3000/verif/1002/10021654703124867
-router.post('/verif/:idUser/:hash', (req, res) => {
+router.get('/verif/:idUser/:hash', (req, res) => {
 
     //1. Obtenemos como parámetro el id y el hash
     const idUser = req.params.idUser; 
@@ -157,8 +155,6 @@ router.delete('/delete', (req, res) => {
   //Eliminamos la tabla a
   mysqlConnection.query('DELETE FROM s', (err, rows, fields) => {
     if(!err) {
-      //res.json({status: 'Tabla a eliminada'});
-      console.log("Tabla a eliminada");
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE s AUTO_INCREMENT = 1');
     } else {
@@ -170,7 +166,7 @@ router.delete('/delete', (req, res) => {
 
     if(!err) {
       res.json({status: 'Tabla a  y s eliminada'});
-      console.log("Tabla s eliminada");
+      console.log(JSON.stringify({ "Respuesta: ": "Tabla a  y s eliminada"}));
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
     } else {
@@ -179,6 +175,37 @@ router.delete('/delete', (req, res) => {
   });
 });
 
+//Borrar solo tabla a
+router.delete('/deletetablea', (req, res) => {
+  //Eliminamos la tabla a
+  mysqlConnection.query('DELETE FROM a', (err, rows, fields) => {
+
+    if(!err) {
+      res.json({status: 'Tabla a eliminada'});
+      console.log(JSON.stringify({ "Respuesta: ": "Tabla a eliminada"}));
+      //Inicializamos nuevamente los id en 1
+      mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+//Borrar solo tabla a
+router.delete('/deletetables', (req, res) => {
+  //Eliminamos la tabla a
+  mysqlConnection.query('DELETE FROM s', (err, rows, fields) => {
+
+    if(!err) {
+      res.json({status: 'Tabla s eliminada'});
+      console.log(JSON.stringify({ "Respuesta: ": "Tabla s eliminada"}));
+      //Inicializamos nuevamente los id en 1
+      mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
+    } else {
+      console.log(err);
+    }
+  });
+});
 
 
 //-----------------OTROS MÉTODOS------------------------------
