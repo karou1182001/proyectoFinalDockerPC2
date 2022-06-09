@@ -199,7 +199,7 @@ router.delete('/delete', (req, res) => {
 });
 
 //Borrar solo tabla a
-router.delete('/deletetablea', (req, res) => {
+router.delete('/a', (req, res) => {
   //Eliminamos la tabla a
   mysqlConnection.query('DELETE FROM a', (err, rows, fields) => {
 
@@ -215,7 +215,7 @@ router.delete('/deletetablea', (req, res) => {
 });
 
 //Borrar solo tabla a
-router.delete('/deletetables', (req, res) => {
+router.delete('/s', (req, res) => {
   //Eliminamos la tabla a
   mysqlConnection.query('DELETE FROM s', (err, rows, fields) => {
 
