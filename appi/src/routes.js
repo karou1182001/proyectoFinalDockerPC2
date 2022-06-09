@@ -2,37 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 //Importamos la conexión
-const mysql = require('mysql');
-
-//--------------------CONEXIÓN BASE DE DATOS---------------------
-//Conecto con la base de datos
-const mysqlConnection = mysql.createConnection({
-  host: 'mysqldb',
-  user: 'root',
-  password: '112358',
-  database: 'dockerapp',
-  multipleStatements: true
-});
-
-var conexion;
-mysqlConnection.connect(function (err) {
-    if (err) {
-      console.log("Conectado a la base de datos");
-        conexion= "nok";
-      return;
-    } else {
-      console.log("Conexión no exitosa");
-      conexion= "ok";
-    }
-  });
-
+const mysqlConnection  = require('./database.js');
 
 //-----------------------CONSULTAS----------------------------------
-//Vemos si conexión fue exitosa
-router.get('/connect', (req, res) => {
-  res.json({"Conexión con base de datos:": conexion});
-});
-
 // GET all users
 router.get('/users', (req, res) => {
     mysqlConnection.query('SELECT * FROM users', (err, rows, fields) => {
