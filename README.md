@@ -23,6 +23,11 @@ docker-compose up -d appi
 
 #  PASOS PARA HACER LAS CONSULTAS
 
+## WARNING: 
+##Reemplazar el link puesto para el ejemplo explicativo por el que sale al abrir el puerto 300
+Debe ser parecido a este: http://ip172-18-0-125-cah2m4k33d5g00d0o1d0-3000.direct.labs.play-with-docker.com
+
+
 ### 1. Un método que devuelve un ok si la conexión de la base de datos es exitosa y un nok en caso contrario:
 Corra:
 ```
