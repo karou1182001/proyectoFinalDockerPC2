@@ -1,5 +1,7 @@
 # proyectoFinalDockerPC2
 
+Presentado por: Juan Gamez, Robin Restrepo & María Zapata.
+
 # PASOS INICIALES
 
 ### 1. Clonar
