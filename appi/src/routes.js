@@ -87,9 +87,6 @@ router.get("/newuser/:idUser", (req, res)=> {
   });
 });
 
-//DUDA 3: ¿Cómo correr con curl?
-
-
 
 /*2.Obteniendo como parámetro un id y hash devolver un ok si el hash es válido y
 un nok en caso contrario. Almacenar en la base de datos el id, hash enviado,
