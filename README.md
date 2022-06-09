@@ -15,7 +15,11 @@ cd proyectoFinalDockerPC2
 ```
 docker-compose up -d
 ```
-(Si el puerto de la appi se llega a apagar, correr: docker-compose up -d appi)
+(Si el puerto de la appi se llega a apagar, correr: 
+```
+docker-compose up -d appi
+```
+)
 
 #  PASOS PARA HACER LAS CONSULTAS
 
