@@ -82,7 +82,8 @@ router.get("/newuser/:idUser", (req, res)=> {
     if(!err) {
       //console.log("Inserción realizada");
       //5. Después de que la inserción fue correctamente realizada, le damos su hash al usuario
-      console.log(JSON.stringify({ "Su hash es: ": hash}));
+      res.json({"Su hash es: ": hash});
+      //console.log(JSON.stringify({ "Su hash es: ": hash}));
     } else {
       console.log(err);
     }
@@ -131,7 +132,8 @@ router.get('/verif/:idUser/:hash', (req, res) => {
              //4. Se almacena en la base de datos el id del hash enviado, timestamp y la respuesta 
              mysqlConnection.query('INSERT INTO a (idUser, hashEnviado, timestamp, respuesta) VALUES (?, ?, ?, ?)', [idUser, hash, timestamp, respuesta], (err, rows, fields) => {
                 if (!err) {
-                  console.log(JSON.stringify({ "Respuesta: ": respuesta}));
+                  res.json({"Respuesta: ": respuesta});
+                  //console.log(JSON.stringify({ "Respuesta: ": respuesta}));
                 } else {
                 console.log(err);
                 }
