@@ -117,10 +117,11 @@ router.get('/verif/:idUser/:hash', (req, res) => {
     //4. Verificamos que ese id y hash existan en la base de datos
     mysqlConnection.query('SELECT * FROM s WHERE idUser = ? AND hash = ?', [idUser, hash], (err, rows, fields) => {
       if (!err) {
-        res.json(rows[0]);
+        //res.json(rows[0]);
         //verificamos si se encuentra o no se encuentra y de acuerdo a eso devolvemos el mensaje
         if(rows[0] === undefined){
-          console.log(JSON.stringify({ "Respuesta: ": "nok"}));
+          //console.log(JSON.stringify({ "Respuesta: ": "nok"}));
+          res.json({ "Respuesta: ": "nok"});
         }else{
             //Si el hash es válido
             var respuesta;
@@ -135,13 +136,14 @@ router.get('/verif/:idUser/:hash', (req, res) => {
                   res.json({"Respuesta: ": respuesta});
                   //console.log(JSON.stringify({ "Respuesta: ": respuesta}));
                 } else {
-                console.log(err);
+                  res.json({ "Respuesta: ": "error"});
                 }
             });
         }
       } else {
-        console.log(err);
-        console.log(JSON.stringify({ "Respuesta: ": "nok"}));
+        //console.log(err);
+        //console.log(JSON.stringify({ "Respuesta: ": "nok"}));
+        res.json({ "Respuesta: ": "nok"});
       }
     });
 
@@ -168,11 +170,12 @@ router.delete('/delete', (req, res) => {
 
     if(!err) {
       res.json({status: 'Tabla a  y s eliminada'});
-      console.log(JSON.stringify({ "Respuesta: ": "Tabla a  y s eliminada"}));
+      //console.log(JSON.stringify({ "Respuesta: ": "Tabla a  y s eliminada"}));
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
     } else {
-      console.log(err);
+      res.json({ "Respuesta: ": err});
+      //console.log(err);
     }
   });
 });
@@ -184,7 +187,7 @@ router.delete('/deletetablea', (req, res) => {
 
     if(!err) {
       res.json({status: 'Tabla a eliminada'});
-      console.log(JSON.stringify({ "Respuesta: ": "Tabla a eliminada"}));
+      //console.log(JSON.stringify({ "Respuesta: ": "Tabla a eliminada"}));
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
     } else {
@@ -200,7 +203,7 @@ router.delete('/deletetables', (req, res) => {
 
     if(!err) {
       res.json({status: 'Tabla s eliminada'});
-      console.log(JSON.stringify({ "Respuesta: ": "Tabla s eliminada"}));
+      //console.log(JSON.stringify({ "Respuesta: ": "Tabla s eliminada"}));
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
     } else {
