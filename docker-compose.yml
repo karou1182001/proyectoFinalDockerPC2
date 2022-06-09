@@ -30,7 +30,7 @@ services:
     depends_on:
       - mysqldb
     #command: ["wait-for-it", "mysqldb:3306", "--", "node",  "src/index.js"]
-    command: sh -c "/wait" && npm run start
+    command: sh -c "/wait" && "npm" "run start"
     environment:
       - WAIT_HOSTS=mysqldb:3306
       - WAIT_HOSTS_TIMEOUT=300
