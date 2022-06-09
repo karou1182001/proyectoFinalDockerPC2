@@ -1,19 +1,41 @@
 const express = require('express');
 const router = express.Router();
-
 //Importamos la conexión
-const mysqlConnection  = require('./database.js');
-
+const mysql = require('mysql');
+//--------------------CONEXIÓN BASE DE DATOS---------------------
+//Conecto con la base de datos
+const mysqlConnection = mysql.createConnection({
+  host: 'mysqldb',
+  user: 'root',
+  password: '112358',
+  database: 'dockerapp',
+  multipleStatements: true
+});
+var conexion;
+mysqlConnection.connect(function (err) {
+    if (err) {
+      console.log("Conexión no exitosa");
+        conexion= "nok";
+      return;
+    } else {
+      console.log("Conectado a la base de datos");
+      conexion= "ok";
+    }
+  });
 //-----------------------CONSULTAS----------------------------------
+//Vemos si conexión fue exitosa
+router.get('/connect', (req, res) => {
+  res.json({"Conexión con base de datos:": conexion});
+});
+
 // GET all users
 router.get('/users', (req, res) => {
     mysqlConnection.query('SELECT * FROM users', (err, rows, fields) => {
       //Si no obtuvimos ningún error, mostramos las filas en formato json
       if(!err) {
         res.json(rows);
-        console.log(rows[0]);
       } else {
-        console.log(err);
+        res.json({"error: ": err});
       }
     });  
   });
@@ -24,10 +46,9 @@ router.get('/s', (req, res) => {
     mysqlConnection.query('SELECT * FROM s', (err, rows,  result) => {
       //Si no obtuvimos ningún error, mostramos las filas en formato json
       if(!err) {
-        res.json(result);
-        console.log(result);
+        res.json(rows);
       } else {
-        console.log(err);
+        res.json({"error: ": err});
       }
     });  
   });
@@ -39,9 +60,8 @@ router.get('/a', (req, res) => {
       //Si no obtuvimos ningún error, mostramos las filas en formato json
       if(!err) {
         res.json(rows);
-        console.log(rows);
       } else {
-        console.log(err);
+        res.json({"error: ": err});
       }
     });  
   });
@@ -61,7 +81,7 @@ router.get("/newuser/:idUser", (req, res)=> {
   mysqlConnection.query("INSERT IGNORE INTO users (id) VALUES (?)", [idUser], (err, result)=>{
     //Si hay error lo mostramos
     if(err) {
-      console.log(err);
+      res.json({"error: ": err});
     }
   });
 
@@ -85,12 +105,10 @@ router.get("/newuser/:idUser", (req, res)=> {
       res.json({"Su hash es: ": hash});
       //console.log(JSON.stringify({ "Su hash es: ": hash}));
     } else {
-      console.log(err);
+      res.json({"error: ": err});
     }
   });
 });
-
-//DUDA 3: ¿Cómo correr con curl?
 
 
 
@@ -191,7 +209,7 @@ router.delete('/deletetablea', (req, res) => {
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
     } else {
-      console.log(err);
+      res.json({"error: ": err});
     }
   });
 });
@@ -207,7 +225,7 @@ router.delete('/deletetables', (req, res) => {
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
     } else {
-      console.log(err);
+      res.json({"error: ": err});
     }
   });
 });
