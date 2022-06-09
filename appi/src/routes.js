@@ -72,8 +72,8 @@ router.get('/a', (req, res) => {
 (combine el id con el timestamp). Almacena en la base de datos el 
 id, timestamp y hash (tabla s). El hash solo tendrá una validez de cuatro horas.
 */
-//Ej: http://localhost:3000/newuser/1002
-router.get("/newuser/:idUser", (req, res)=> {
+//Ej: http://localhost:3000/1002
+router.get("/consulta/:idUser", (req, res)=> {
   //Se realizará esto en 5 pasos
   //1. Obetenemos el nuevo id que se le pasó por parámetro
   const idUser= req.params.idUser;  
@@ -116,7 +116,7 @@ router.get("/newuser/:idUser", (req, res)=> {
 un nok en caso contrario. Almacenar en la base de datos el id, hash enviado,
 timestamp y la respuesta (tabla a). */
 //Ej: http://localhost:3000/verif/1002/10021654703124867
-router.get('/verif/:idUser/:hash', (req, res) => {
+router.get('/consulta/:idUser/:hash', (req, res) => {
 
     //1. Obtenemos como parámetro el id y el hash
     const idUser = req.params.idUser; 
