@@ -11,9 +11,8 @@ router.get('/users', (req, res) => {
       //Si no obtuvimos ningún error, mostramos las filas en formato json
       if(!err) {
         res.json(rows);
-        console.log(rows[0]);
       } else {
-        console.log(err);
+        res.json({"error: ": err});
       }
     });  
   });
@@ -24,10 +23,9 @@ router.get('/s', (req, res) => {
     mysqlConnection.query('SELECT * FROM s', (err, rows,  result) => {
       //Si no obtuvimos ningún error, mostramos las filas en formato json
       if(!err) {
-        res.json(result);
-        console.log(result);
+        res.json(rows);
       } else {
-        console.log(err);
+        res.json({"error: ": err});
       }
     });  
   });
@@ -39,9 +37,8 @@ router.get('/a', (req, res) => {
       //Si no obtuvimos ningún error, mostramos las filas en formato json
       if(!err) {
         res.json(rows);
-        console.log(rows);
       } else {
-        console.log(err);
+        res.json({"error: ": err});
       }
     });  
   });
@@ -61,7 +58,7 @@ router.get("/newuser/:idUser", (req, res)=> {
   mysqlConnection.query("INSERT IGNORE INTO users (id) VALUES (?)", [idUser], (err, result)=>{
     //Si hay error lo mostramos
     if(err) {
-      console.log(err);
+      res.json({"error: ": err});
     }
   });
 
@@ -85,7 +82,7 @@ router.get("/newuser/:idUser", (req, res)=> {
       res.json({"Su hash es: ": hash});
       //console.log(JSON.stringify({ "Su hash es: ": hash}));
     } else {
-      console.log(err);
+      res.json({"error: ": err});
     }
   });
 });
@@ -143,7 +140,7 @@ router.get('/verif/:idUser/:hash', (req, res) => {
       } else {
         //console.log(err);
         //console.log(JSON.stringify({ "Respuesta: ": "nok"}));
-        res.json({ "Respuesta: ": "nok"});
+        res.json({ "Error: ": "nok"});
       }
     });
 
@@ -181,7 +178,7 @@ router.delete('/delete', (req, res) => {
 });
 
 //Borrar solo tabla a
-router.delete('/deletetablea', (req, res) => {
+router.delete('/a', (req, res) => {
   //Eliminamos la tabla a
   mysqlConnection.query('DELETE FROM a', (err, rows, fields) => {
 
@@ -191,13 +188,13 @@ router.delete('/deletetablea', (req, res) => {
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
     } else {
-      console.log(err);
+      res.json({"error: ": err});
     }
   });
 });
 
 //Borrar solo tabla a
-router.delete('/deletetables', (req, res) => {
+router.delete('/s', (req, res) => {
   //Eliminamos la tabla a
   mysqlConnection.query('DELETE FROM s', (err, rows, fields) => {
 
@@ -207,7 +204,7 @@ router.delete('/deletetables', (req, res) => {
       //Inicializamos nuevamente los id en 1
       mysqlConnection.query('ALTER TABLE a AUTO_INCREMENT = 1');
     } else {
-      console.log(err);
+      res.json({"error: ": err});
     }
   });
 });
