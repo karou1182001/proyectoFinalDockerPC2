@@ -69,7 +69,9 @@ curl -X "DELETE" http://ip172-18-0-125-cah2m4k33d5g00d0o1d0-3000.direct.labs.pla
 curl -X "DELETE" http://ip172-18-0-125-cah2m4k33d5g00d0o1d0-3000.direct.labs.play-with-docker.com/s
 ```
 
-Link Video-ejemplo:
+Link Descargar Video-ejemplo:
 https://drive.google.com/file/d/127mSgYKvRqX-SKZs9UUn6mltYkA40nlO/view?usp=sharing
+Link Ver Video-Ejemplo:
+https://drive.google.com/file/d/125x2anuXPIZQlBsxpXg8vafkqTtLYPKI/view?usp=sharing
 
 
